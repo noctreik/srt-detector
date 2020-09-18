@@ -13,10 +13,10 @@ pip install -r requirements.txt
 ```
 ### Usage
 1. Store `.srt` files in subtitles folder.
-2. Store keywords in `keywords.txt`. Keyword is a single word. New keyword is placed in new line.
+2. Store keywords in `keywords.txt`. Keyword is a single word or multiple words. New keyword is placed in new line.
 Example of keywords.txt:
 ```
-white
-privilege
+white privilege
 goyim
+adolt
 ```

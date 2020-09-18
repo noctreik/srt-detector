@@ -45,11 +45,6 @@ def detect_keywords(subtitles_folder, keywords_set):
                         detection = Detection(srt_file, text, keyword, sentence.start, sentence.end)
                         detected_keywords.append(detection)
 
-                # for word in text_.split(" "):
-                #     if word in keywords_set:
-                #         detection = Detection(srt_file, text, word, sentence.start, sentence.end)
-                #         detected_keywords.append(detection)
-
     return detected_keywords
 
 
