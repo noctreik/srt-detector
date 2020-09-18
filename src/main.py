@@ -1,3 +1,4 @@
+import re
 import os
 
 import srt
@@ -13,7 +14,7 @@ class Detection:
         self.dt_end = dt_end
 
     def __str__(self, ):
-        return f"{self.srt_file.split('/')[-1]} - {self.sentence} ({self.detected_word}) @ {self.dt_start}"
+        return f"{self.srt_file.split('/')[-1]} - {self.sentence} [{self.detected_word}] @ {self.dt_start}"
 
 
 def clean_up(text):
@@ -30,9 +31,17 @@ def parse_keywords(keywords_path):
     return keywords_set
 
 
-def detect_keywords(subtitles_folder, keywords_set):
+def detect_keywords(text_, keyword):
+    m = re.search(f"(^|\s){keyword}($|\s)", text_)
+    if m:
+        return True
+    return False
+
+
+def parse_srt(subtitles_folder, keywords_set):
     detected_keywords = []
     srt_files = [f"{subtitles_folder}/{x}" for x in os.listdir(subtitles_folder) if x.endswith(".srt")]
+
     for srt_file in srt_files:
         print(f"Detecting keywords in: {srt_file}")
         with open(srt_file, "r") as f:
@@ -41,7 +50,7 @@ def detect_keywords(subtitles_folder, keywords_set):
                 text_ = clean_up(text)
 
                 for keyword in keywords_set:
-                    if keyword in text_:
+                    if detect_keywords(text_, keyword):
                         detection = Detection(srt_file, text, keyword, sentence.start, sentence.end)
                         detected_keywords.append(detection)
 
@@ -52,7 +61,7 @@ def main():
     subtitles_folder = "subtitles"
     keywords_path = "keywords.txt"
     keywords_set = parse_keywords(keywords_path)
-    detected_list = detect_keywords(subtitles_folder, keywords_set)
+    detected_list = parse_srt(subtitles_folder, keywords_set)
 
     for detected in detected_list:
         print(detected)

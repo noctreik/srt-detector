@@ -16,7 +16,7 @@ pip install -r requirements.txt
 2. Store keywords in `keywords.txt`. Keyword is a single word or multiple words. New keyword is placed in new line.
 3. Run the project by executing:
 ```
-python main.py
+python src/main.py
 ```
 
 Example of keywords.txt:
@@ -24,4 +24,14 @@ Example of keywords.txt:
 white privilege
 goyim
 adolt
+```
+
+### Test
+Ensure you are in virtual environment
+```console
+source venv/bin/activate
+```
+Position yourself to the root this project and enter the following command:
+```console
+pytest test
 ```
